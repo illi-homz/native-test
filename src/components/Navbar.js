@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import {THEME} from '../theme'
+import { AppTextBold } from './ui/AppTextBold'
 
 export const Navbar = ({title}) => {
 	return (
 		<View style={styles.navbar}>
-			<Text style={styles.text}>{title}</Text>
+			<AppTextBold style={styles.text}>{title}</AppTextBold>
 		</View>
 	)
 }
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
 		height: 50,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#3949ab'
+		backgroundColor: THEME.MAIN_COLOR
 	},
 	text: {
 		color: 'white',
