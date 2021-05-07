@@ -12,6 +12,12 @@ export const EditModal = ({value, visible, onClose, onSave}) => {
 			onSave(title)
 		}
 	}
+
+	const canselHandler = () => {
+		setTitle(value)
+		onClose(false)
+	}
+
 	return (
 		<Modal
 			visible={visible}
@@ -27,7 +33,7 @@ export const EditModal = ({value, visible, onClose, onSave}) => {
 				/>
 				<View style={styles.buttons}>
 					<AppButton
-						onPress={onClose.bind(null, false)}
+						onPress={canselHandler}
 						color={THEME.DANGER_COLOR}
 					>
 						Отменить
