@@ -1,18 +1,38 @@
-import React from 'react';
-import {StyleSheet, View, FlatList, Text, Image} from 'react-native'
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, FlatList, Text, Image, Dimensions} from 'react-native'
 import { AddTodo } from '../components/AddTodo';
 import { Todo } from '../components/Todo';
+import { THEME } from '../theme';
 
 
 export const MainScreen = ({addTodo, todos, removeTodo, openTodo}) => {
+	const [deviseWidth, setDeviseWidth] = useState(
+		Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
+	)
+
+	useEffect(() => {
+		const update = () => {
+			const width =
+				Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
+			setDeviseWidth(width)
+		}
+		Dimensions.addEventListener('change', update)
+
+		return () => {
+			Dimensions.removeEventListener('change', update)
+		}
+	})
+
 	let content = (
-		<FlatList
-			keyExtractor={item => item.id.toString()}
-			data={todos}
-			renderItem={({ item, index, separators }) => (
-				<Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />
-			)}
-		/>
+		<View style={{ width: deviseWidth }}>
+			<FlatList
+				keyExtractor={item => item.id.toString()}
+				data={todos}
+				renderItem={({ item, index, separators }) => (
+					<Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />
+				)}
+			/>
+		</View>
 	)
 
 	if (!todos.length) content = (
